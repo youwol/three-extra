@@ -2,7 +2,10 @@
 
 
 ## Description
+Extentions for three.js with some user friendly functionalities.
 
+## Documentation
+Read [online](https://youwol.github.io/three-extra/dist/docs/index.html).
 
 ## Use 
 To install the required dependencies:

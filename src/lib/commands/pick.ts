@@ -1,12 +1,12 @@
-import { Raycaster, Vector2, Scene, Camera } from "three"
+import { Raycaster, Vector2, Camera, Object3D } from "three"
 
 /**
- * Pick (or not) an object
+ * Try to pick an object
  * @category Commands
  */
 export function pickObject(
     {event, scene, camera}:
-    {event: MouseEvent, scene: Scene, camera: Camera})
+    {event: MouseEvent, scene: Object3D, camera: Camera})
 {
     const raycaster = new Raycaster()
     const mouse = new Vector2(

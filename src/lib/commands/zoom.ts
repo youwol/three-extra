@@ -1,4 +1,4 @@
-import { Vector3, Camera, Box3 } from "three"
+import { Vector3, Camera, Box3, Object3D } from "three"
 import { animate } from '../animationLoop'
 import { pickObject } from './pick'
 
@@ -8,7 +8,7 @@ import { pickObject } from './pick'
  */
 export function zoomToModel(
     {scene, camera, controls, duration=300}:
-    {scene: any, camera: Camera, controls: any, duration?: number})
+    {scene: Object3D, camera: Camera, controls: any, duration?: number})
 {
     const box = new Box3().setFromObject(scene)
     const center = box.getCenter(new Vector3())
@@ -46,7 +46,7 @@ export function zoomToModel(
  */
 export function zoomToIntersection(
     {event, scene, camera, controls, zoomFactor=0.5, duration=300}:
-    {event: MouseEvent, scene: any, camera: Camera, controls: any, zoomFactor?: number, duration?: number})
+    {event: MouseEvent, scene: Object3D, camera: Camera, controls: any, zoomFactor?: number, duration?: number})
 {
     const I = pickObject({event, scene, camera})
     if (I === undefined) {

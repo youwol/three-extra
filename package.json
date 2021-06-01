@@ -1,6 +1,6 @@
 {
   "name": "@youwol/three-extra",
-  "version": "0.0.1",
+  "version": "0.0.1-next",
   "description": "Extending three.js with some user firndly functionalities",
   "author": "",
   "keywords": [],
@@ -26,7 +26,6 @@
     "@youwol/dataframe": "0.x",
     "@youwol/io": "0.0.5",
     "@youwol/math": "0.x",
-
     "eslint": "7.23.0",
     "tslib": "2.2.0",
     "typescript": "4.2.3",

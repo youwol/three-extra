@@ -7,7 +7,7 @@ import {
 
 import { TrackballControls } from './TrackballControls'
 //import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import { RenderFunction, RenderFunctions } from "./renderFunctions"
+import { RenderFunctions } from "./renderFunctions"
 import { changeView } from "./commands"
 
 // See https://github.com/bytezeroseven/GLB-Viewer/blob/master/viewer.js
@@ -214,13 +214,13 @@ class NavigationCube {
     }
 
     private generateCube(option?: NavigationCubeParameters) {
-        let elt: HTMLElement = option ? option.domHome : undefined
-        if (elt) elt.addEventListener('click', () => this.serializer.deserialize())
-
-        
-        
-        elt = option ? option.domSaveHome : undefined
+        // Save current view
+        let elt: HTMLElement = option ? option.domSaveHome : undefined
         if (elt) elt.addEventListener('click', () => this.serializer.serialize())
+
+        // Restore view
+        elt = option ? option.domHome : undefined
+        if (elt) elt.addEventListener('click', () => this.serializer.deserialize())
 
         let materials = [];
         let texts = option.labels

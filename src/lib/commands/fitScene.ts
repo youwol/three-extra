@@ -1,5 +1,4 @@
 import { Box3, Vector3, PerspectiveCamera, Object3D, Camera } from 'three'
-//import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
 import { TrackballControls } from '../TrackballControls'
 
 /**
@@ -7,7 +6,7 @@ import { TrackballControls } from '../TrackballControls'
  * The default value for the fitRatio is 1.2
  * @example
  * ```ts
- * kepler.fitScene( {scene, camera, controls} )
+ * threeExtra.fitScene( {scene, camera, controls} )
  * ```
  * @category Commands
  */
