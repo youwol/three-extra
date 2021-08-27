@@ -4,7 +4,7 @@ import { MathUtils, WebGLRenderer, Scene, Camera } from "three"
  * @see [[RenderFunctions]]
  * @category Utils
  */
-export type RenderFunction = () => void
+export type RenderFunction = (renderer?: WebGLRenderer) => void
 
 /**
  * Used to gather all rendering/upfating functions in the `requestAnimationFrame`
@@ -51,7 +51,7 @@ export class RenderFunctions {
     render = () => {
         this.renderer.clear();
         this.renderer.render(this.scene, this.camera )
-        this.stack.forEach( item => item.renderFct() )
+        this.stack.forEach( item => item.renderFct(this.renderer) )
         this.renderer.clearDepth()
     }
 

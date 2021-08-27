@@ -16,17 +16,18 @@ export function createBufferGeometry(
     const geom = new BufferGeometry()
 
     if (position['array'] !== undefined) {
-        // ASerie
         geom.setAttribute('position', new BufferAttribute((position as Serie).array, 3) )
     }
     else {
-        if (!Array.isArray(position)) throw new Error('poition should be an Array')
-        //if (Array.isArray(position)) {
+        if (Array.isArray(position)) {
             geom.setAttribute('position', new BufferAttribute(new Float32Array(position), 3) )
-        //}
-        // else {
-        //     geom.setAttribute('position', new BufferAttribute(position, 3) )
-        // }
+        }
+        else if (ArrayBuffer.isView(position)) {
+            geom.setAttribute('position', new BufferAttribute(position as any, 3) )
+        }
+        else {
+            throw new Error('position should be an Array, a TypedArray or a Serie')
+        }
     }
 
     if (indices !== undefined) {
@@ -34,14 +35,17 @@ export function createBufferGeometry(
             geom.setIndex( new BufferAttribute((indices as Serie).array, 1) )
         }
         else {
-            if (!Array.isArray(indices)) throw new Error('indices should be an Array')
-            //if (Array.isArray(indices)) {
+            //if (!Array.isArray(indices)) throw new Error('indices should be an Array')
+            if (Array.isArray(indices)) {
                 console.warn('Deal with Uint16 or Uint32')
                 geom.setIndex( new BufferAttribute(new Uint32Array(indices), 1) )
-            //}
-            // else {
-            //     geom.setIndex( new BufferAttribute(indices, 1) )
-            // }
+            }
+            else if (ArrayBuffer.isView(indices)) {
+                geom.setIndex( new BufferAttribute(indices as any, 1) )
+            }
+            else {
+                throw new Error('indices should be an Array, a TypedArray or a Serie')
+            }
         }
 
         if (creaseAngle===0) {
