@@ -1,6 +1,6 @@
 {
   "name": "@youwol/three-extra",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Extending three.js with some user firndly functionalities",
   "author": "",
   "keywords": [],
@@ -14,31 +14,30 @@
     "test-coverage": "jest -c ./jest.config.js --rootDir . --collect-coverage --collectCoverageFrom=./src/lib/**/*.ts ",
     "doc": "typedoc src/ --exclude src/tests --exclude src/lib --out dist/docs --theme default --disableSources --includeVersion --hideGenerator"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "@youwol/dataframe": "0.x",
     "three": "^0.128.0"
   },
   "devDependencies": {
+    "@types/jest": "26.0.22",
     "@types/node": "14.14.37",
     "@types/three": "^0.128.0",
     "@youwol/dataframe": "0.x",
     "@youwol/io": "0.0.5",
     "@youwol/math": "0.x",
     "eslint": "7.23.0",
-    "tslib": "2.2.0",
-    "typescript": "4.2.3",
-    "webpack": "5.28.0",
-    "webpack-cli": "4.6.0",
     "eslint-webpack-plugin": "2.5.3",
-    "ts-loader": "8.1.0",
     "jest": "26.6.3",
     "jest-junit": "12.0.0",
     "three": "^0.128.0",
     "ts-jest": "26.5.4",
-    "@types/jest": "26.0.22",
-    "typedoc":"0.20.34"
+    "ts-loader": "8.1.0",
+    "tslib": "2.2.0",
+    "typedoc": "0.20.34",
+    "typescript": "4.2.3",
+    "webpack": "5.28.0",
+    "webpack-cli": "4.6.0"
   },
   "youwol": {
     "pipeline": {
