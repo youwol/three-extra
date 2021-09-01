@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@youwol/three-extra - v0.0.2</title>
-	<meta name="description" content="Documentation for @youwol/three-extra - v0.0.2">
+	<title>@youwol/three-extra - v0.0.2-next</title>
+	<meta name="description" content="Documentation for @youwol/three-extra - v0.0.2-next">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 	<script async src="assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@youwol/three-extra - v0.0.2</a>
+					<a href="index.html" class="title">@youwol/three-extra - v0.0.2-next</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,7 +50,7 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<h1>@youwol/three-extra - v0.0.2</h1>
+			<h1>@youwol/three-extra - v0.0.2-next</h1>
 		</div>
 	</div>
 </header>
@@ -101,13 +101,6 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Buffer utils Functions</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-function"><a href="modules.html#addcolortobuffergeometry" class="tsd-kind-icon">add<wbr>Color<wbr>ToBuffer<wbr>Geometry</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#createbuffergeometry" class="tsd-kind-icon">create<wbr>Buffer<wbr>Geometry</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#mergebufferattributes" class="tsd-kind-icon">merge<wbr>Buffer<wbr>Attributes</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#mergebuffergeometries" class="tsd-kind-icon">merge<wbr>Buffer<wbr>Geometries</a></li>
-							</ul>
 							<h3>Commands Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#changebackground" class="tsd-kind-icon">change<wbr>Background</a></li>
@@ -121,7 +114,6 @@
 							<h3>Other Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function"><a href="modules.html#animate" class="tsd-kind-icon">animate</a></li>
-								<li class="tsd-kind-function"><a href="modules.html#normalattribute" class="tsd-kind-icon">normal<wbr>Attribute</a></li>
 							</ul>
 							<h3>Skins Functions</h3>
 							<ul class="tsd-index-list">
@@ -229,132 +221,6 @@
 							</li>
 						</ul>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Buffer utils Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="addcolortobuffergeometry" class="tsd-anchor"></a>
-					<h3>add<wbr>Color<wbr>ToBuffer<wbr>Geometry</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Color<wbr>ToBuffer<wbr>Geometry<span class="tsd-signature-symbol">(</span>geometry<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferGeometry</span>, color<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Serie</span>, name<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>brief</dt>
-									<dd><p>Add a color attribute in a BufferGeometry</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>geometry: <span class="tsd-signature-type">BufferGeometry</span></h5>
-								</li>
-								<li>
-									<h5>color: <span class="tsd-signature-type">Serie</span></h5>
-								</li>
-								<li>
-									<h5>name: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#x27;color&#x27;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="createbuffergeometry" class="tsd-anchor"></a>
-					<h3>create<wbr>Buffer<wbr>Geometry</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Buffer<wbr>Geometry<span class="tsd-signature-symbol">(</span>position<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Serie</span>, indices<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Serie</span>, creaseAngle<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferGeometry</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>brief</dt>
-									<dd><p>Create a BufferGeometry using [[ASerie]]s</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>position: <span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Serie</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> indices: <span class="tsd-signature-type">IArray</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Serie</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> creaseAngle: <span class="tsd-signature-type">number</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BufferGeometry</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="mergebufferattributes" class="tsd-anchor"></a>
-					<h3>merge<wbr>Buffer<wbr>Attributes</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">merge<wbr>Buffer<wbr>Attributes<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferAttribute</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferAttribute</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>brief</dt>
-									<dd><p>Merge several BufferAttribute into one</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>attributes: <span class="tsd-signature-type">BufferAttribute</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BufferAttribute</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="mergebuffergeometries" class="tsd-anchor"></a>
-					<h3>merge<wbr>Buffer<wbr>Geometries</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">merge<wbr>Buffer<wbr>Geometries<span class="tsd-signature-symbol">(</span>geometries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferGeometry</span><span class="tsd-signature-symbol">[]</span>, useGroups<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">BufferGeometry</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<dl class="tsd-comment-tags">
-									<dt>brief</dt>
-									<dd><p>Merge sevral BufferGeometry into one</p>
-									</dd>
-								</dl>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>geometries: <span class="tsd-signature-type">BufferGeometry</span><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>useGroups: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">BufferGeometry</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -691,40 +557,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="normalattribute" class="tsd-anchor"></a>
-					<h3>normal<wbr>Attribute</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">normal<wbr>Attribute<span class="tsd-signature-symbol">(</span>coord<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IArray</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">IArray</span>, creaseAngle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Float32BufferAttribute</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Get the normals as a BufferAttribute using a crease angle</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>coord: <span class="tsd-signature-type">IArray</span></h5>
-								</li>
-								<li>
-									<h5>index: <span class="tsd-signature-type">IArray</span></h5>
-								</li>
-								<li>
-									<h5>creaseAngle: <span class="tsd-signature-type">number</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>In radian</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Float32BufferAttribute</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Skins Functions</h2>
@@ -817,9 +649,6 @@
 						<a href="modules.html#constraint" class="tsd-kind-icon">CONSTRAINT</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="modules.html#addcolortobuffergeometry" class="tsd-kind-icon">add<wbr>Color<wbr>ToBuffer<wbr>Geometry</a>
-					</li>
-					<li class=" tsd-kind-function">
 						<a href="modules.html#animate" class="tsd-kind-icon">animate</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -827,9 +656,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#changeview" class="tsd-kind-icon">change<wbr>View</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#createbuffergeometry" class="tsd-kind-icon">create<wbr>Buffer<wbr>Geometry</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#createdefaultlights" class="tsd-kind-icon">create<wbr>Default<wbr>Lights</a>
@@ -842,15 +668,6 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#installnavigationcube" class="tsd-kind-icon">install<wbr>Navigation<wbr>Cube</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#mergebufferattributes" class="tsd-kind-icon">merge<wbr>Buffer<wbr>Attributes</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#mergebuffergeometries" class="tsd-kind-icon">merge<wbr>Buffer<wbr>Geometries</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="modules.html#normalattribute" class="tsd-kind-icon">normal<wbr>Attribute</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="modules.html#pickobject" class="tsd-kind-icon">pick<wbr>Object</a>
