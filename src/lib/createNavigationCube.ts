@@ -233,17 +233,20 @@ class NavigationCube {
         canvas.width = size;
         canvas.height = size;
 
+        // Faces
         ctx.font = 'bolder 12px "Open sans", Arial';
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
 
-        let mainColor = '#fff';
-        let otherColor = '#aaa';
+        // Faces colors (grad or not)
+        let mainColor = '#333';
+        let otherColor = '#333';
 
         let bg = ctx.createLinearGradient(0, 0, 0, size);
         bg.addColorStop(0, mainColor);
         bg.addColorStop(1,  otherColor);
 
+        // Border lines
         for (let i = 0; i < 6; i++) {
             if (texts[i] == texts[2]) {
                 ctx.fillStyle = mainColor;
@@ -253,11 +256,12 @@ class NavigationCube {
                 ctx.fillStyle = bg;
             }
             ctx.fillRect(0, 0, size, size);
-            ctx.strokeStyle = '#aaa';
-            ctx.setLineDash([8, 8]);
+            ctx.strokeStyle = '#fff';
+            ctx.fillStyle = '#fff';
+            //ctx.setLineDash([8, 8]);
             ctx.lineWidth = 4;
             ctx.strokeRect(0, 0, size, size);
-            ctx.fillStyle = '#555';
+            ctx.fillStyle = '#FFF';
             ctx.fillText(texts[i], size / 2, size / 2);
             materials[i] = new MeshBasicMaterial({
                 map: textureLoader.load(canvas.toDataURL())
