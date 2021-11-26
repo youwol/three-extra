@@ -153,6 +153,14 @@ class NavigationCube {
         this.renderFunctions.remove(this.uuidFct)
     }
 
+    saveView() {
+        this.serializer.serialize()
+    }
+
+    restoreView() {
+        this.serializer.deserialize()
+    }
+
     private onClick = (e: MouseEvent) => {
         this.renderer.domElement.onmousemove(e)
         if (!this.activePlane || this.hasMoved) {
