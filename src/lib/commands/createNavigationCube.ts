@@ -5,10 +5,11 @@ import {
     Vector2, Vector3, WebGLRenderer
 } from "three"
 
-import { TrackballControls } from './TrackballControls'
+//import { TrackballControls } from '../TrackballControls.ts'
+import TrackballControls from 'three-trackballcontrols'
 //import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import { RenderFunctions } from "./renderFunctions"
-import { changeView } from "./commands"
+import { RenderFunctions } from "../renderFunctions"
+import { changeView } from "."
 
 // See https://github.com/bytezeroseven/GLB-Viewer/blob/master/viewer.js
 

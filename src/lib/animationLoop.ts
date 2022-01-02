@@ -20,8 +20,8 @@ export class AnimationLoop {
     }
 
     private loop = () => {
-        this.t += 1/this.nb
-        if (this.t < 1) {
+        this.t += 1/(this.nb-1)
+        if (this.t <= 1) {
             this.cb(this.t)
         }
         else {	

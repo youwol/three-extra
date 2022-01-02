@@ -10,6 +10,7 @@
   * - import 'three'
   * - removed THREE namespace
   * - added new class which allows to register trackball configs (save view)
+  * - added constraint on axis
   * @author Frantz Maerten
   * @date 2019/09/03
   */

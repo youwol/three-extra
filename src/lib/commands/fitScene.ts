@@ -1,5 +1,6 @@
 import { Box3, Vector3, PerspectiveCamera, Object3D, Camera } from 'three'
-import { TrackballControls } from '../TrackballControls'
+//import { TrackballControls } from '../TrackballControls.ts.OLD'
+import TrackballControls from 'three-trackballcontrols'
 
 /**
  * Fit a scene or a specific object or array of objects.

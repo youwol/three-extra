@@ -1,5 +1,6 @@
 import { Vector3, Scene, Camera, Box3 } from 'three'
-import { TrackballControls } from '../TrackballControls'
+// import { TrackballControls } from '../TrackballControls.ts'
+import TrackballControls from 'three-trackballcontrols'
 import { fitScene } from './fitScene'
 
 // TODO: define a Control interface since we can have OrbitControl etc...
