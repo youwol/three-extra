@@ -1,14 +1,15 @@
 import {
     BoxGeometry, Camera, DoubleSide, Mesh, MeshBasicMaterial, 
     Object3D, 
+    OrthographicCamera, 
     PerspectiveCamera, PlaneGeometry, Raycaster, Scene, TextureLoader, 
     Vector2, Vector3, WebGLRenderer
 } from "three"
 
 //import { TrackballControls } from '../TrackballControls.ts'
-import TrackballControls from 'three-trackballcontrols'
-//import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+//import TrackballControls from 'three-trackballcontrols'
 import { RenderFunctions } from "../renderFunctions"
+import { Controls } from '../Control'
 import { changeView } from "."
 
 // See https://github.com/bytezeroseven/GLB-Viewer/blob/master/viewer.js
@@ -20,7 +21,7 @@ export class NavigationCubeParameters {
 	scene     : Scene
     camera    : Camera
 	renderer  : WebGLRenderer
-    controls : TrackballControls
+    controls  : Controls
 	renderFunctions: RenderFunctions
 	domElement: HTMLElement
     labels: string[]
@@ -42,7 +43,7 @@ export class NavigationCubeParameters {
 			scene: Scene, 
             camera: Camera, 
             renderer: WebGLRenderer, 
-            controls: TrackballControls,
+            controls: Controls,
 			renderFunctions: RenderFunctions,
             domElement: HTMLElement
             labels?: string[],
@@ -85,7 +86,7 @@ class NavigationCube {
     renderer:           WebGLRenderer = undefined
     cameraDistance:     number = 1.75
     hasMoved:           boolean  = false
-    cubeController:     TrackballControls = undefined
+    //cubeController:     Controls = undefined
     scene:              Scene = new Scene
     planes:             Array<Mesh> = []
     cube:               Mesh = undefined
@@ -99,7 +100,7 @@ class NavigationCube {
     newPosition:        Vector3 = new Vector3()
     uuidFct:            string = undefined
 
-    controls:           TrackballControls
+    controls:           Controls
     serializer:         TrackballSerializer = undefined
 
 	constructor(params: NavigationCubeParameters) {
@@ -121,19 +122,14 @@ class NavigationCube {
         this.renderer.setPixelRatio(window.devicePixelRatio)
         this.domElement.appendChild(this.renderer.domElement)
 
+        /*
         this.cubeController = new TrackballControls(this.parentCamera, this.renderer.domElement)
         //this.cubeController.enablePan = false;
         //this.cubeController.enableZoom = false;
         this.cubeController.noPan = true
         this.cubeController.noZoom = true
         this.cubeController.rotateSpeed = 0.125
-
-        this.uuidFct = this.renderFunctions.add(() => {
-            this.updateCubeCamera()
-            this.renderer.render(this.scene, this.camera)
-        })
-
-        this.generateCube(params)
+        */
 
         // let cubeController = new TrackballControls(this.camera, this.renderer.domElement);
 	    // // cubeController.enablePan = false;
@@ -142,6 +138,13 @@ class NavigationCube {
 	    // cubeController.noZoom = true
         // cubeController.rotateSpeed = 0.125;
         // //cubeController.addEventListener('change', () => this.renderFunctions.render())
+
+        this.uuidFct = this.renderFunctions.add(() => {
+            this.updateCubeCamera()
+            this.renderer.render(this.scene, this.camera)
+        })
+
+        this.generateCube(params)
 
         this.renderer.domElement.onmousemove = this.onMouseMove
         this.renderer.domElement.onclick = this.onClick
@@ -347,7 +350,7 @@ class NavigationCube {
 }
 
 class TrackballSerializer {
-    constructor(private readonly controls: TrackballControls) {
+    constructor(private readonly controls: Controls) {
     }
 
     serialize() {
@@ -363,7 +366,8 @@ class TrackballSerializer {
         localStorage.setItem("controls.object.up.y", this.controls.object.up.y.toString() )
         localStorage.setItem("controls.object.up.z", this.controls.object.up.z.toString() )
 
-        localStorage.setItem("controls.object.zoom", this.controls.object.zoom.toString() )
+        const camera = this.controls.object as PerspectiveCamera | OrthographicCamera
+        localStorage.setItem("controls.object.zoom", camera.zoom.toString() )
     }
 
     deserialize() {
@@ -381,7 +385,8 @@ class TrackballSerializer {
         this.controls.object.up.y = parseFloat(localStorage.getItem("controls.object.up.y"))
         this.controls.object.up.z = parseFloat(localStorage.getItem("controls.object.up.z"))
 
-        this.controls.object.zoom = parseFloat(localStorage.getItem("controls.object.zoom"))
+        const camera = this.controls.object as PerspectiveCamera | OrthographicCamera
+        camera.zoom = parseFloat(localStorage.getItem("controls.object.zoom"))
 
         this.controls.update()
     }

@@ -30,6 +30,11 @@ module.exports = {
             commonjs:'three',
             commonjs2:'three',
             root: 'THREE'
+        },
+        "three-trackballcontrols": {
+            commonjs:"three-trackballcontrols",
+            commonjs2:"three-trackballcontrols",
+            root:["TrackballControls"]
         }
     }],
     module: {

@@ -1,6 +1,7 @@
 import { Vector3, Scene, Camera, Box3 } from 'three'
 // import { TrackballControls } from '../TrackballControls.ts'
-import TrackballControls from 'three-trackballcontrols'
+//import TrackballControls from 'three-trackballcontrols'
+import { Controls } from '../Control'
 import { fitScene } from './fitScene'
 
 // TODO: define a Control interface since we can have OrbitControl etc...
@@ -17,7 +18,7 @@ import { fitScene } from './fitScene'
  */
 export function changeView(view: string,
     {scene, camera, controls}:
-    {scene: Scene, camera: Camera, controls: TrackballControls})
+    {scene: Scene, camera: Camera, controls: Controls})
 {
     if (!controls) throw new Error('Missing controls in args')
     if (view) {

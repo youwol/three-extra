@@ -20,10 +20,27 @@ import {
     Vector3, 
     WebGLRenderer
 } from 'three'
-//import { createTextSprite } from './createTextSprite'
+import { createTextSprite } from './createTextSprite'
 import { animate }          from '../animationLoop'
 import { RenderFunctions }  from '../renderFunctions'
-import { createText2D } from './createText2D'
+
+export class GridTextParameters {
+    rect: boolean
+    rectColor: string
+    fontColor: string
+    fontSize: number
+
+    constructor(
+        {rect=true, rectColor='#fffd82', fontColor='#000', fontSize=22}:
+        {rect?: boolean, rectColor?: string, fontColor?: string, fontSize?: number}={}
+    )
+    {
+        this.rect      = rect
+        this.rectColor = rectColor
+        this.fontColor = fontColor
+        this.fontSize  = fontSize
+    }
+}
 
 export class GridHeplerParameters {
     renderFunctions: RenderFunctions
@@ -79,8 +96,8 @@ export class GridHeplerParameters {
     }
 }
 
-export function createGridHelper(object: Object3D, params: GridHeplerParameters) {
-    return new GridsHelper(object, params)
+export function createGridHelper(object: Object3D, params: GridHeplerParameters, text = new GridTextParameters()) {
+    return new GridsHelper(object, params, text)
 }
 
 /*
@@ -88,6 +105,12 @@ TODO:
     - separate the size for each axis
     - axis size should be greater than 30% of the max axis size
 */
+
+// class Obj {
+//     grid  : GridHelper
+//     plane : Mesh
+//     group : Group
+// }
 
 class GridsHelper {
     private uuidFct   : string
@@ -103,25 +126,26 @@ class GridsHelper {
     private planeEast  : Mesh
     private planeTop   : Mesh
     private planeBottom: Mesh
+    private groupEast: Group
+    private groupWest: Group
+    private groupNorth: Group
+    private groupSouth: Group
+    private groupTop: Group
+    private groupBottom: Group
+
     private renderFunctions: RenderFunctions = undefined
     private renderer       : WebGLRenderer = undefined
     private scene          : Scene = undefined
     private camera         : Camera = undefined
-    private group          : Group = undefined
+    private group: Group
     private params: GridHeplerParameters = undefined
-    private updatingBottom = false
-    private updatingTop    = false
-    private updatingEast   = false
-    private updatingWest   = false
-    private updatingNorth  = false
-    private updatingSouth  = false
-
-    constructor(object: Object3D, params: GridHeplerParameters) {
+    
+    constructor(object: Object3D, params: GridHeplerParameters, private textParams: GridTextParameters) {
         this.renderFunctions = params.renderFunctions
         this.renderer        = params.renderer
         this.camera          = params.camera
         this.scene           = params.scene
-        this.params = params
+        this.params          = params
 
         this.generateGrid(object)
 
@@ -140,36 +164,12 @@ class GridsHelper {
 
     update() {
         if (this.params.fading===false) {
-            {
-                const ok = this.canSee(this.camera, Direction.XPLUS)
-                this.gridEast.visible = ok
-                this.planeEast.visible = ok && this.params.showPlanes
-            }
-            {
-                const ok = this.canSee(this.camera, Direction.XMINUS)
-                this.gridWest.visible = ok
-                this.planeWest.visible = ok && this.params.showPlanes
-            }
-            {
-                const ok = this.canSee(this.camera, Direction.YMINUS)
-                this.gridSouth.visible = ok
-                this.planeSouth.visible = ok && this.params.showPlanes
-            }
-            {
-                const ok = this.canSee(this.camera, Direction.YPLUS)
-                this.gridNorth.visible = ok
-                this.planeNorth.visible = ok && this.params.showPlanes
-            }
-            {
-                const ok = this.canSee(this.camera, Direction.ZPLUS)
-                this.gridTop.visible = ok
-                this.planeTop.visible = ok && this.params.showPlanes
-            }
-            {
-                const ok = this.canSee(this.camera, Direction.ZMINUS)
-                this.gridBottom.visible = ok
-                this.planeBottom.visible = ok && this.params.showPlanes
-            }            
+            this.groupEast.visible   = this.canSee(this.camera, Direction.XPLUS )
+            this.groupWest.visible   = this.canSee(this.camera, Direction.XMINUS)
+            this.gridSouth.visible   = this.canSee(this.camera, Direction.YMINUS)
+            this.groupNorth.visible  = this.canSee(this.camera, Direction.YPLUS )
+            this.groupTop.visible    = this.canSee(this.camera, Direction.ZPLUS )
+            this.groupBottom.visible = this.canSee(this.camera, Direction.ZMINUS)
             return
         }
 
@@ -177,11 +177,13 @@ class GridsHelper {
             const view = this.canSee(this.camera, dir)
 
             if (!this["updating"+name] && this["grid"+name].visible !== view) {
-                const material = this["plane"+name].material as Material ;
+                const mat1 = this["plane"+name].material as Material; 
+                const mat2 = this["grid"+name].material as Material ;
                 this["updating"+name] = true
 
                 if (this["plane"+name].visible === false) {
-                    material.opacity = 0
+                    mat1.opacity = 0
+                    mat2.opacity = 0
                 }
                 else {
                     this["grid"+name].visible = false
@@ -189,7 +191,8 @@ class GridsHelper {
 
                 animate({
                     cb: (t:number) => {
-                        material.opacity = view ? t : (1-t)
+                        mat1.opacity = view ? t : (1-t)
+                        mat2.opacity = view ? t : (1-t)
                     }, 
                     nb:20, 
                     time: this.params.fadingTime,
@@ -210,7 +213,7 @@ class GridsHelper {
         fade("North" , Direction.YPLUS)
     }
 
-    canSee(c: Camera, view: Direction) {
+    private canSee(c: Camera, view: Direction) {
         const ray = new Vector3()
         c.getWorldDirection(ray)
 
@@ -224,13 +227,13 @@ class GridsHelper {
         }
     }
 
-    getAngle(v1: Vector3, v2: Vector3) {
+    private getAngle(v1: Vector3, v2: Vector3) {
         let ang = (v1.cross(v2).z < 0 ? TWOPI - Math.acos(v1.dot(v2)) : Math.acos(v1.dot(v2)))
         if (ang >= TWOPI) ang -= TWOPI
         return ang
     }
 
-    generateGrid(object: Object3D) {
+    private generateGrid(object: Object3D) {
         const b = new Box3
         b.setFromObject(object)
 
@@ -247,6 +250,22 @@ class GridsHelper {
         this.group = new Group
         this.scene.add(this.group)
 
+        this.groupBottom = new Group
+        this.group.add(this.groupBottom)
+        this.groupTop = new Group
+        this.group.add(this.groupTop)
+        this.groupNorth = new Group
+        this.group.add(this.groupNorth)
+        this.groupSouth = new Group
+        this.group.add(this.groupSouth)
+        this.groupEast = new Group
+        this.group.add(this.groupEast)
+        this.groupWest = new Group
+        this.group.add(this.groupWest)
+
+        // this.addMarker(1.23, b.min)
+        // this.addMarker(1.23, b.max)
+
         let pos = new Vector3
 
         {
@@ -254,48 +273,48 @@ class GridsHelper {
             const {grid, plane} = this.generatePlane(sizeX, sizeY, pos)
             this.gridBottom  = grid
             this.planeBottom = plane
-            this.group.add(this.gridBottom)
-            this.group.add(this.planeBottom)
+            this.groupBottom.add(this.gridBottom)
+            if (this.params.showPlanes) this.groupBottom.add(this.planeBottom)
         }
         {
             pos.setX(center.x).setY(center.y).setZ(center.z+sizeZ/2)
             const {grid, plane} = this.generatePlane(sizeX, sizeY, pos)
             this.gridTop  = grid
             this.planeTop = plane
-            this.group.add(this.gridTop)
-            this.group.add(this.planeTop)
+            this.groupTop.add(this.gridTop)
+            if (this.params.showPlanes) this.groupTop.add(this.planeTop)
         }
         {
             pos.setX(center.x).setY(center.y-sizeY/2).setZ(center.z)
             const {grid, plane} = this.generatePlane(sizeX, sizeZ, pos, 'x', Math.PI/2)
             this.gridSouth  = grid
             this.planeSouth = plane
-            this.group.add(this.gridSouth)
-            this.group.add(this.planeSouth)
+            this.groupSouth.add(this.gridSouth)
+            if (this.params.showPlanes) this.groupSouth.add(this.planeSouth)
         }
         {
             pos.setX(center.x).setY(center.y+sizeY/2).setZ(center.z)
             const {grid, plane} = this.generatePlane(sizeX, sizeZ, pos, 'x', Math.PI/2)
             this.gridNorth  = grid
             this.planeNorth = plane
-            this.group.add(this.gridNorth)
-            this.group.add(this.planeNorth)
+            this.groupNorth.add(this.gridNorth)
+            if (this.params.showPlanes) this.groupNorth.add(this.planeNorth)
         }
         {
             pos.setX(center.x-sizeX/2).setY(center.y).setZ(center.z)
             const {grid, plane} = this.generatePlane(sizeZ, sizeY, pos, 'y', Math.PI/2)
             this.gridWest  = grid
             this.planeWest = plane
-            this.group.add(this.gridWest)
-            this.group.add(this.planeWest)
+            this.groupWest.add(this.gridWest)
+            if (this.params.showPlanes) this.groupWest.add(this.planeWest)
         }
         {
             pos.setX(center.x+sizeX/2).setY(center.y).setZ(center.z)
             const {grid, plane} = this.generatePlane(sizeZ, sizeY, pos, 'y', Math.PI/2)
             this.gridEast  = grid
             this.planeEast = plane
-            this.group.add(this.gridEast)
-            this.group.add(this.planeEast)
+            this.groupEast.add(this.gridEast)
+            if (this.params.showPlanes) this.groupEast.add(this.planeEast)
         }
 
         if (this.params.showBBox) {
@@ -311,10 +330,12 @@ class GridsHelper {
         }
     }
 
-    generatePlane(sizeX: number, sizeY: number, pos: Vector3, rotAxis: string=undefined, rotAngle: number=undefined) {
-        const grid = new GridHelper(sizeX, sizeY, this.params.divisions)
-        if (rotAxis) this.rotate(grid.rotation, rotAxis, rotAngle)
-        grid.position.set(pos.x, pos.y, pos.z)
+    private generatePlane(sizeX: number, sizeY: number, pos: Vector3, rotAxis: string=undefined, rotAngle: number=undefined) {
+        const grid = new GridHelper(sizeX, sizeY, this.params.divisions, this.textParams)
+        if (rotAxis) {
+            this.rotate((grid as LineSegments).rotation, rotAxis, rotAngle) ;
+        }
+        (grid as LineSegments).position.set(pos.x, pos.y, pos.z) ;
 
         const geometry = new PlaneGeometry(sizeX, sizeY)
         const material = new MeshBasicMaterial({
@@ -338,13 +359,26 @@ class GridsHelper {
         }
     }
 
-    rotate(rotation: Euler, rotAxis: string, rotAngle: number) {
+    private rotate(rotation: Euler, rotAxis: string, rotAngle: number) {
         switch(rotAxis) {
             case 'x': rotation.x = rotAngle; break;
             case 'y': rotation.y = rotAngle; break;
             case 'z': rotation.z = rotAngle; break;
             default: throw new Error('unknown axis '+rotAxis)
         }
+    }
+
+    private addMarker(value: number, pos: Vector3) {
+        const text = Math.abs(value)>100 ? value.toFixed(0).toString() : value.toFixed(3).toString()
+        const s = createTextSprite({
+            text,
+            position: pos,
+            rect: this.textParams.rect,
+            rectColor: this.textParams.rectColor,
+            fontSize: this.textParams.fontSize,
+            fontColor: this.textParams.fontColor
+        })
+        this.group.add(s)
     }
 }
 
@@ -362,44 +396,44 @@ enum Direction {
 }
 
 class GridHelper extends LineSegments {
-	constructor( sizeX: number, sizeY: number, divisions: number, c1 = 0x000000, c2 = 0x888888 ) {
+	constructor( sizeX: number, sizeY: number, divisions: number, textParams: GridTextParameters, c1 = 0x000000, c2 = 0x888888) {
         super()
-		const color1 = new Color( c1 );
-		const color2 = new Color( c2 );
-		const center = divisions / 2;
-		const stepX = sizeX / divisions;
-        const stepY = sizeY / divisions;
-		const halfSizeX = sizeX / 2;
-        const halfSizeY = sizeY / 2;
-		const vertices = [], colors = [];
-        let k = -halfSizeX
-        let l = -halfSizeY
+		const stepX = sizeX / divisions
+        const stepY = sizeY / divisions
+		const X2 = sizeX / 2
+        const Y2 = sizeY / 2
+		const vertices = []
 
-		for ( let i = 0, j = 0; i <= divisions; i ++ ) {
-			vertices.push( - halfSizeX, l, 0, halfSizeX, l, 0 );
-			vertices.push( k, - halfSizeY, 0, k, halfSizeY, 0 );
-			const color = i === center ? color1 : color2;
-			color.toArray( colors, j ); j += 3;
-			color.toArray( colors, j ); j += 3;
-			color.toArray( colors, j ); j += 3;
-			color.toArray( colors, j ); j += 3;
-            k += stepX ;
-            l += stepY ;
+        let k = -X2
+        let l = -Y2
+		for (let i = 0; i <= divisions; ++i) {
+			vertices.push( -X2,   l, 0, X2,  l, 0 )
+			vertices.push(   k, -Y2, 0,  k, Y2, 0 )
 
-            // const s = createText2D(k.toFixed(3).toString())
-            // s.scale.set(10,10,10)
-            // s.position.set(- halfSizeX, l, 0)
-            // this.add(s)
+            if (1) {
+                const text = Math.abs(k)>100 ? k.toFixed(0).toString() : k.toFixed(3).toString()
+                const s = createTextSprite({
+                    text,
+                    position: new Vector3(X2, l, 0),
+                    rect: textParams.rect,
+                    rectColor: textParams.rectColor,
+                    fontSize: textParams.fontSize,
+                    fontColor: textParams.fontColor
+                })
+                this.add(s)
+            }
+
+            k += stepX
+            l += stepY
 		}
         
 		const geometry = new BufferGeometry()
 		geometry.setAttribute( 'position', new Float32BufferAttribute( vertices, 3 ) )
-		geometry.setAttribute( 'color', new Float32BufferAttribute( colors, 3 ) )
 		const material = new LineBasicMaterial( { vertexColors: true, toneMapped: false } )
 
-        this.geometry = geometry
-        this.material = material
-
-		this.type = 'GridHelper'
+        const self = this as LineSegments
+        self.geometry = geometry
+        self.material = material
+		self.type = 'GridHelper'
 	}
 }

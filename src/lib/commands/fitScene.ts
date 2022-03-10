@@ -22,7 +22,7 @@ export function fitScene(
 })
 {
     if (!camera) throw new Error('Missing camera')
-    if (!controls) throw new Error('Missing trackball')
+    if (!controls) throw new Error('Missing control')
     if ( !(camera instanceof PerspectiveCamera) ) throw new Error('Ortho camera not suppported yet')
 
     if (selection===undefined && !scene) throw new Error('Missing scene or selection array')
