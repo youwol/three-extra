@@ -2,7 +2,9 @@ import { CanvasTexture, Sprite, SpriteMaterial, Vector3 } from "three"
 
 export function createTextSprite(
     {text, position, rect=true, rectColor='#fffd82', fontColor='#000', fontSize=22}:
-    {text: string, position: Vector3, rect?: boolean, rectColor?: string, fontColor?: string, fontSize?: number}) {
+    {text: string, position: Vector3, rect?: boolean, rectColor?: string, fontColor?: string, fontSize?: number})
+{
+
     const canvas = document.createElement('canvas')
     let ctx = canvas.getContext('2d')
     // const fontsize = 22
@@ -10,6 +12,8 @@ export function createTextSprite(
     ctx.font = 'bolder ' + fontSize + 'px "Open Sans", Arial'
 
     let size = ctx.measureText(text)
+    // console.log(size)
+
     let paddingLeft = 5
     let paddingTop = 5
     let margin = 10
@@ -40,6 +44,7 @@ export function createTextSprite(
     let h = 0.3
     sprite.scale.set(0.002 * canvas.width, 0.0025 * canvas.height, 1).multiplyScalar(h)
     sprite.position.copy(position)
+    // sprite.position.setX(sprite.position.x + canvas.width)
 
     return sprite
 }

@@ -10,3 +10,6 @@ dist/index.d.ts
 dist/src
 dist/tests
 dist/node_modules
+
+cdn.zip
+**/.DS_Store

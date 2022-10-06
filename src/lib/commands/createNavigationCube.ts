@@ -24,8 +24,8 @@ export class NavigationCubeParameters {
     controls  : Controls
 	renderFunctions: RenderFunctions
 	domElement: HTMLElement
-    labels: string[]
-    domHome: HTMLElement
+    labels    : string[]
+    domHome   : HTMLElement
     domSaveHome: HTMLElement
 
     constructor(
@@ -326,26 +326,25 @@ class NavigationCube {
         this.scene.add(plane5);
         this.planes.push(plane5);
 
-        let plane6 = new Mesh(planeGeometry, planeMaterial.clone());
-        plane6.rotation.x = Math.PI / 2;
-        plane6.position.y = -a;
+        let plane6 = new Mesh(planeGeometry, planeMaterial.clone())
+        plane6.rotation.x = Math.PI / 2
+        plane6.position.y = -a
         plane6.name = 'south'
-        this.scene.add(plane6);
-        this.planes.push(plane6);
-
-        let groundMaterial = new MeshBasicMaterial({
-            color: 0xffffff
-        });
-        let groundGeometry = new PlaneGeometry(1, 1);
-        let groundPlane = new Mesh(groundGeometry, groundMaterial);
-        groundPlane.rotation.x = -Math.PI / 2;
-        groundPlane.position.y = -0.6;
+        this.scene.add(plane6)
+        this.planes.push(plane6)
 
         this.cube = new Mesh(new BoxGeometry(1, 1, 1), materials)
         this.cube.rotation.x = Math.PI / 2
-
-        this.cube.add(groundPlane);
         this.scene.add(this.cube)
+
+        if (0) {
+            let groundMaterial = new MeshBasicMaterial({color: 0xffffff})
+            let groundGeometry = new PlaneGeometry(1, 1)
+            let groundPlane = new Mesh(groundGeometry, groundMaterial)
+            groundPlane.rotation.x = -Math.PI / 2
+            groundPlane.position.y = -0.6
+            this.cube.add(groundPlane)
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 {
   "name": "@youwol/three-extra",
   "version": "0.0.7",
-  "description": "Extending three.js with some user firndly functionalities",
+  "description": "Extending three.js with some user friendly functionalities",
   "author": "",
   "keywords": [],
   "main": "dist/@youwol/three-extra.js",
