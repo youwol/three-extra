@@ -1,4 +1,4 @@
-import { Vector3, Scene, Camera, Box3 } from 'three'
+import { Vector3, Scene, Camera, Box3, Object3D } from 'three'
 // import { TrackballControls } from '../TrackballControls.ts'
 //import TrackballControls from 'three-trackballcontrols'
 import { Controls } from '../Control'
@@ -17,8 +17,8 @@ import { fitScene } from './fitScene'
  * @category Commands
  */
 export function changeView(view: string,
-    {scene, camera, controls}:
-    {scene: Scene, camera: Camera, controls: Controls})
+    {scene, camera, controls, selection=undefined}:
+    {scene: Scene, camera: Camera, controls: Controls, selection?: Object3D[] | Object3D})
 {
     if (!controls) throw new Error('Missing controls in args')
     if (view) {
@@ -30,7 +30,7 @@ export function changeView(view: string,
             controls.object.position.copy(e.position) // object is Object3D
             controls.object.up.copy(e.up)
             //controls.rotateCamera()
-            fitScene({scene, camera, controls})
+            fitScene({scene, camera, controls, selection})
 
             
             // const beginTarget = controls.target.clone()
