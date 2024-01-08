@@ -30,6 +30,7 @@
     "@youwol/io": "0.x",
     "@youwol/math": "0.x",
     "@youwol/eslint-config": "^1.0.0",
+    "@youwol/prettier-config": "^1.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
@@ -60,6 +61,7 @@
       "three-trackballcontrols": "^0.9.0"
     }
   },
+  "prettier": "@youwol/prettier-config",
   "eslintConfig": {
     "extends": [
       "@youwol"
