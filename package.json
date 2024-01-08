@@ -24,9 +24,18 @@
     "@types/jest": "26.0.22",
     "@types/node": "14.14.37",
     "@types/three": "^0.128.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
+    "@typescript-eslint/parser": "^5.33.1",
     "@youwol/dataframe": "0.x",
     "@youwol/io": "0.x",
     "@youwol/math": "0.x",
+    "@youwol/eslint-config": "^1.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.8.4",
+    "eslint-plugin-tsdoc": "^0.2.16",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "eslint": "7.23.0",
     "jest": "26.6.3",
     "jest-junit": "12.0.0",
@@ -50,5 +59,18 @@
       "three": "^0.128.0",
       "three-trackballcontrols": "^0.9.0"
     }
+  },
+  "eslintConfig": {
+    "extends": [
+      "@youwol"
+    ],
+    "overrides": [
+      {
+        "files": "examples/**/*.js",
+        "env": {
+          "node": true
+        }
+      }
+    ]
   }
 }
