@@ -38,7 +38,9 @@ export class AnimationLoop {
             this.cb(this.t)
         } else {
             clearInterval(this.intervalId)
-            if (this.endCb) this.endCb()
+            if (this.endCb) {
+                this.endCb()
+            }
         }
     }
 

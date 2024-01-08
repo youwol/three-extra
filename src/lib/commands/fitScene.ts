@@ -24,13 +24,19 @@ export function fitScene({
     selection?: Object3D[] | Object3D
     fitRatio?: number
 }) {
-    if (!camera) throw new Error('Missing camera')
-    if (!controls) throw new Error('Missing control')
-    if (!(camera instanceof PerspectiveCamera))
+    if (!camera) {
+        throw new Error('Missing camera')
+    }
+    if (!controls) {
+        throw new Error('Missing control')
+    }
+    if (!(camera instanceof PerspectiveCamera)) {
         throw new Error('Ortho camera not suppported yet')
+    }
 
-    if (selection === undefined && !scene)
+    if (selection === undefined && !scene) {
         throw new Error('Missing scene or selection array')
+    }
 
     selection = selection !== undefined ? selection : scene.children
     fitRatio = fitRatio !== undefined ? fitRatio : 1.2

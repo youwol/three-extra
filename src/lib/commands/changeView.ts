@@ -1,4 +1,4 @@
-import { Vector3, Scene, Camera, Box3, Object3D } from 'three'
+import { Vector3, Scene, Camera, Object3D } from 'three'
 // import { TrackballControls } from '../TrackballControls.ts'
 //import TrackballControls from 'three-trackballcontrols'
 import { Controls } from '../Control'
@@ -30,7 +30,9 @@ export function changeView(
         selection?: Object3D[] | Object3D
     },
 ) {
-    if (!controls) throw new Error('Missing controls in args')
+    if (!controls) {
+        throw new Error('Missing controls in args')
+    }
     if (view) {
         const name = view.toLowerCase()
         const e = entries.get(name)

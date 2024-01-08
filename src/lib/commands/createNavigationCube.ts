@@ -83,8 +83,8 @@ export function installNavigationCube(params: NavigationCubeParameters) {
 class NavigationCube {
     camera: Camera = undefined
     renderer: WebGLRenderer = undefined
-    cameraDistance: number = 1.75
-    hasMoved: boolean = false
+    cameraDistance = 1.75
+    hasMoved = false
     //cubeController:     Controls = undefined
     scene: Scene = new Scene()
     planes: Array<Mesh> = []
@@ -200,17 +200,17 @@ class NavigationCube {
     private onMouseMove = (e: MouseEvent) => {
         this.deactivate()
 
-        let x = e.offsetX
-        let y = e.offsetY
-        let size = this.renderer.getSize(new Vector2())
-        let mouse = new Vector2(
+        const x = e.offsetX
+        const y = e.offsetY
+        const size = this.renderer.getSize(new Vector2())
+        const mouse = new Vector2(
             (x / size.width) * 2 - 1,
             (-y / size.height) * 2 + 1,
         )
 
-        let raycaster = new Raycaster()
+        const raycaster = new Raycaster()
         raycaster.setFromCamera(mouse, this.camera)
-        let intersects = raycaster.intersectObjects(
+        const intersects = raycaster.intersectObjects(
             this.planes.concat(this.cube),
         )
 
@@ -232,7 +232,7 @@ class NavigationCube {
 
     private updateCubeCamera = () => {
         this.camera.rotation.copy(this.parentCamera.rotation)
-        let dir = this.parentCamera.position
+        const dir = this.parentCamera.position
             .clone()
             .sub(this.controls.target)
             .normalize()
@@ -242,22 +242,24 @@ class NavigationCube {
     private generateCube(option?: NavigationCubeParameters) {
         // Save current view
         let elt: HTMLElement = option ? option.domSaveHome : undefined
-        if (elt)
+        if (elt) {
             elt.addEventListener('click', () => this.serializer.serialize())
+        }
 
         // Restore view
         elt = option ? option.domHome : undefined
-        if (elt)
+        if (elt) {
             elt.addEventListener('click', () => this.serializer.deserialize())
+        }
 
-        let materials = []
-        let texts = option.labels
+        const materials = []
+        const texts = option.labels
 
-        let textureLoader = new TextureLoader()
-        let canvas = document.createElement('canvas')
-        let ctx = canvas.getContext('2d')
+        const textureLoader = new TextureLoader()
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
 
-        let size = 64
+        const size = 64
         canvas.width = size
         canvas.height = size
 
@@ -267,10 +269,10 @@ class NavigationCube {
         ctx.textAlign = 'center'
 
         // Faces colors (grad or not)
-        let mainColor = '#333'
-        let otherColor = '#333'
+        const mainColor = '#333'
+        const otherColor = '#333'
 
-        let bg = ctx.createLinearGradient(0, 0, 0, size)
+        const bg = ctx.createLinearGradient(0, 0, 0, size)
         bg.addColorStop(0, mainColor)
         bg.addColorStop(1, otherColor)
 
@@ -296,53 +298,53 @@ class NavigationCube {
             })
         }
 
-        let planeMaterial = new MeshBasicMaterial({
+        const planeMaterial = new MeshBasicMaterial({
             side: DoubleSide,
             color: 0xffc000,
             transparent: true,
             opacity: 0,
             depthTest: false,
         })
-        let planeSize = 0.7
-        let planeGeometry = new PlaneGeometry(planeSize, planeSize)
+        const planeSize = 0.7
+        const planeGeometry = new PlaneGeometry(planeSize, planeSize)
 
-        let a = 0.51
+        const a = 0.51
 
-        let plane1 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane1 = new Mesh(planeGeometry, planeMaterial.clone())
         plane1.position.z = a
         plane1.name = 'up'
         this.scene.add(plane1)
         this.planes.push(plane1)
 
-        let plane2 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane2 = new Mesh(planeGeometry, planeMaterial.clone())
         //plane2.rotation.y = Math.PI
         //plane2.position.z = -a;
         plane2.name = 'down'
         this.scene.add(plane2)
         this.planes.push(plane2)
 
-        let plane3 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane3 = new Mesh(planeGeometry, planeMaterial.clone())
         plane3.rotation.y = Math.PI / 2
         plane3.position.x = a
         plane3.name = 'east'
         this.scene.add(plane3)
         this.planes.push(plane3)
 
-        let plane4 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane4 = new Mesh(planeGeometry, planeMaterial.clone())
         plane4.rotation.y = Math.PI / 2
         plane4.position.x = -a
         plane4.name = 'west'
         this.scene.add(plane4)
         this.planes.push(plane4)
 
-        let plane5 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane5 = new Mesh(planeGeometry, planeMaterial.clone())
         plane5.rotation.x = Math.PI / 2
         plane5.position.y = a
         plane5.name = 'north'
         this.scene.add(plane5)
         this.planes.push(plane5)
 
-        let plane6 = new Mesh(planeGeometry, planeMaterial.clone())
+        const plane6 = new Mesh(planeGeometry, planeMaterial.clone())
         plane6.rotation.x = Math.PI / 2
         plane6.position.y = -a
         plane6.name = 'south'
@@ -354,9 +356,9 @@ class NavigationCube {
         this.scene.add(this.cube)
 
         if (0) {
-            let groundMaterial = new MeshBasicMaterial({ color: 0xffffff })
-            let groundGeometry = new PlaneGeometry(1, 1)
-            let groundPlane = new Mesh(groundGeometry, groundMaterial)
+            const groundMaterial = new MeshBasicMaterial({ color: 0xffffff })
+            const groundGeometry = new PlaneGeometry(1, 1)
+            const groundPlane = new Mesh(groundGeometry, groundMaterial)
             groundPlane.rotation.x = -Math.PI / 2
             groundPlane.position.y = -0.6
             this.cube.add(groundPlane)
@@ -414,7 +416,9 @@ class TrackballSerializer {
     }
 
     deserialize() {
-        if (!localStorage.getItem('controls.target.x')) return
+        if (!localStorage.getItem('controls.target.x')) {
+            return
+        }
 
         this.controls.target.x = parseFloat(
             localStorage.getItem('controls.target.x'),

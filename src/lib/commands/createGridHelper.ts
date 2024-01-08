@@ -16,7 +16,6 @@ import {
     Object3D,
     PlaneGeometry,
     Scene,
-    ShadowMaterial,
     Vector3,
     WebGLRenderer,
 } from 'three'
@@ -257,7 +256,9 @@ class GridsHelper {
             v1.cross(v2).z < 0
                 ? TWOPI - Math.acos(v1.dot(v2))
                 : Math.acos(v1.dot(v2))
-        if (ang >= TWOPI) ang -= TWOPI
+        if (ang >= TWOPI) {
+            ang -= TWOPI
+        }
         return ang
     }
 
@@ -300,7 +301,7 @@ class GridsHelper {
         // this.addMarker(1.23, b.min)
         // this.addMarker(1.23, b.max)
 
-        let pos = new Vector3()
+        const pos = new Vector3()
 
         {
             pos.setX(center.x)
@@ -310,7 +311,9 @@ class GridsHelper {
             this.gridBottom = grid
             this.planeBottom = plane
             this.groupBottom.add(this.gridBottom)
-            if (this.params.showPlanes) this.groupBottom.add(this.planeBottom)
+            if (this.params.showPlanes) {
+                this.groupBottom.add(this.planeBottom)
+            }
         }
         {
             pos.setX(center.x)
@@ -320,7 +323,9 @@ class GridsHelper {
             this.gridTop = grid
             this.planeTop = plane
             this.groupTop.add(this.gridTop)
-            if (this.params.showPlanes) this.groupTop.add(this.planeTop)
+            if (this.params.showPlanes) {
+                this.groupTop.add(this.planeTop)
+            }
         }
         {
             pos.setX(center.x)
@@ -336,7 +341,9 @@ class GridsHelper {
             this.gridSouth = grid
             this.planeSouth = plane
             this.groupSouth.add(this.gridSouth)
-            if (this.params.showPlanes) this.groupSouth.add(this.planeSouth)
+            if (this.params.showPlanes) {
+                this.groupSouth.add(this.planeSouth)
+            }
         }
         {
             pos.setX(center.x)
@@ -352,7 +359,9 @@ class GridsHelper {
             this.gridNorth = grid
             this.planeNorth = plane
             this.groupNorth.add(this.gridNorth)
-            if (this.params.showPlanes) this.groupNorth.add(this.planeNorth)
+            if (this.params.showPlanes) {
+                this.groupNorth.add(this.planeNorth)
+            }
         }
         {
             pos.setX(center.x - sizeX / 2)
@@ -368,7 +377,9 @@ class GridsHelper {
             this.gridWest = grid
             this.planeWest = plane
             this.groupWest.add(this.gridWest)
-            if (this.params.showPlanes) this.groupWest.add(this.planeWest)
+            if (this.params.showPlanes) {
+                this.groupWest.add(this.planeWest)
+            }
         }
         {
             pos.setX(center.x + sizeX / 2)
@@ -384,7 +395,9 @@ class GridsHelper {
             this.gridEast = grid
             this.planeEast = plane
             this.groupEast.add(this.gridEast)
-            if (this.params.showPlanes) this.groupEast.add(this.planeEast)
+            if (this.params.showPlanes) {
+                this.groupEast.add(this.planeEast)
+            }
         }
 
         if (this.params.showBBox) {
@@ -416,7 +429,8 @@ class GridsHelper {
         if (rotAxis) {
             this.rotate((grid as LineSegments).rotation, rotAxis, rotAngle)
         }
-        ;(grid as LineSegments).position.set(pos.x, pos.y, pos.z)
+        const gridAsSegments = grid as LineSegments
+        gridAsSegments.position.set(pos.x, pos.y, pos.z)
 
         const geometry = new PlaneGeometry(sizeX, sizeY)
         const material = new MeshBasicMaterial({
@@ -429,7 +443,9 @@ class GridsHelper {
         })
 
         const plane = new Mesh(geometry, material)
-        if (rotAxis) this.rotate(plane.rotation, rotAxis, rotAngle)
+        if (rotAxis) {
+            this.rotate(plane.rotation, rotAxis, rotAngle)
+        }
         plane.position.set(pos.x, pos.y, pos.z)
         plane.visible = this.params.showPlanes
         //plane.receiveShadow = true

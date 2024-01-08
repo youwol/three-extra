@@ -32,7 +32,9 @@ export class Keyboard {
         private readonly dom: any,
         private readonly type: string = 'keydown',
     ) {
-        if (dom === undefined) this.dom = document
+        if (dom === undefined) {
+            this.dom = document
+        }
         this.dom.addEventListener(type, this.proceed)
     }
 
@@ -71,7 +73,9 @@ export class Keyboard {
      */
     destroy() {
         this.dom.removeEventListener(this.type, this.proceed)
-        if (this.upCB) this.dom.removeEventListener('keyup', this.upCB)
+        if (this.upCB) {
+            this.dom.removeEventListener('keyup', this.upCB)
+        }
     }
 
     private proceed = (event: KeyboardEvent) => {

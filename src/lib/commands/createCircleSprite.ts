@@ -12,20 +12,22 @@ export function createCircleSprite(
     })
     const sprite = new Sprite(circleMaterial)
     sprite.scale.setScalar(scale)
-    if (pos) sprite.position.copy(pos.clone())
+    if (pos) {
+        sprite.position.copy(pos.clone())
+    }
 
     return sprite
 }
 
 function makeCircleImage(color: string) {
-    let canvas = document.createElement('canvas')
-    let ctx = canvas.getContext('2d')
-    let size = 64
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const size = 64
     canvas.width = size
     canvas.height = size
 
-    let r = (size * 0.3) / 2
-    let blur = size - r
+    const r = (size * 0.3) / 2
+    const blur = size - r
 
     ctx.shadowBlur = 5
     ctx.shadowColor = '#555'

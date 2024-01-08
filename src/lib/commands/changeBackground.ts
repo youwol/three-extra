@@ -17,7 +17,9 @@ export function changeBackground({
     color?: string
     image?: string
 }) {
-    if (!scene) throw new Error('Missing scene')
+    if (!scene) {
+        throw new Error('Missing scene')
+    }
 
     if (color) {
         scene.background = new Color(color)

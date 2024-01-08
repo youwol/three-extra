@@ -1,6 +1,5 @@
 import {
     Group,
-    PointLight,
     Object3D,
     Box3,
     Vector3,
@@ -58,7 +57,7 @@ export function createDefaultLights({
 
     // DEBUG
     if (0) {
-        let size = 200
+        const size = 200
         const sphere = new Mesh(
             new SphereGeometry(size, 32, 32),
             new MeshBasicMaterial({ color: 0xff0000 }),

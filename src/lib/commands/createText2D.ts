@@ -29,7 +29,7 @@ export function createText2D(
     const plane = new PlaneGeometry(canvas.width, canvas.height, segW, segH)
     const tex = new Texture(canvas)
     tex.needsUpdate = true
-    var planeMat = new MeshBasicMaterial({
+    const planeMat = new MeshBasicMaterial({
         map: tex,
         color: 0xffffff,
         transparent: true,
@@ -43,16 +43,16 @@ export function createText2D(
 
 function createTextCanvas(
     text: string,
-    color: string = '#000000',
-    font: string = 'Arial',
-    size: number = 16,
+    color = '#000000',
+    font = 'Arial',
+    size = 16,
 ) {
-    var canvas = document.createElement('canvas')
-    var ctx = canvas.getContext('2d')
-    var fontStr = size + 'px ' + font
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    const fontStr = size + 'px ' + font
     ctx.font = fontStr
-    var w = ctx.measureText(text).width
-    var h = Math.ceil(size)
+    const w = ctx.measureText(text).width
+    const h = Math.ceil(size)
     canvas.width = w
     canvas.height = h
     ctx.font = fontStr

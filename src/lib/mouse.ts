@@ -5,7 +5,7 @@ import { Vector3 } from 'three'
 export class Mouse {
     constructor(
         private readonly canvas,
-        installTouch: boolean = false,
+        installTouch = false,
     ) {
         window.addEventListener('mousemove', this.setPickPosition)
         window.addEventListener('mouseout', this.clearPickPosition)

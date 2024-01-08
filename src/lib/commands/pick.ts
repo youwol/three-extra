@@ -24,7 +24,9 @@ export function pickObject({
         true /* recursive */,
     )
     intersectedObjects = intersectedObjects.filter((value: any) => {
-        if (value.object.pickable === undefined) return true
+        if (value.object.pickable === undefined) {
+            return true
+        }
         return value.object.pickable
     })
 

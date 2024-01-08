@@ -16,17 +16,17 @@ export function createTextSprite({
     fontSize?: number
 }) {
     const canvas = document.createElement('canvas')
-    let ctx = canvas.getContext('2d')
+    const ctx = canvas.getContext('2d')
     // const fontsize = 22
 
     ctx.font = 'bolder ' + fontSize + 'px "Open Sans", Arial'
 
-    let size = ctx.measureText(text)
+    const size = ctx.measureText(text)
     // console.log(size)
 
-    let paddingLeft = 5
-    let paddingTop = 5
-    let margin = 10
+    const paddingLeft = 5
+    const paddingTop = 5
+    const margin = 10
 
     canvas.width = size.width + paddingLeft * 2 + margin * 2
     canvas.height = fontSize + paddingTop * 2 + margin * 2
@@ -52,15 +52,15 @@ export function createTextSprite({
     ctx.font = 'bolder ' + fontSize + 'px "Open Sans", Arial'
     ctx.fillText(text, paddingLeft + margin, paddingTop + margin)
 
-    let texture = new CanvasTexture(canvas)
-    let sprite = new Sprite(
+    const texture = new CanvasTexture(canvas)
+    const sprite = new Sprite(
         new SpriteMaterial({
             map: texture,
             sizeAttenuation: false,
         }),
     )
 
-    let h = 0.3
+    const h = 0.3
     sprite.scale
         .set(0.002 * canvas.width, 0.0025 * canvas.height, 1)
         .multiplyScalar(h)
