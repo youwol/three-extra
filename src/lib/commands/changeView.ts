@@ -16,23 +16,32 @@ import { fitScene } from './fitScene'
  * ```
  * @category Commands
  */
-export function changeView(view: string,
-    {scene, camera, controls, selection=undefined}:
-    {scene: Scene, camera: Camera, controls: Controls, selection?: Object3D[] | Object3D})
-{
+export function changeView(
+    view: string,
+    {
+        scene,
+        camera,
+        controls,
+        selection = undefined,
+    }: {
+        scene: Scene
+        camera: Camera
+        controls: Controls
+        selection?: Object3D[] | Object3D
+    },
+) {
     if (!controls) throw new Error('Missing controls in args')
     if (view) {
         const name = view.toLowerCase()
         const e = entries.get(name)
 
         if (e !== undefined) {
-            controls.target.copy(e.target)            // target is Vector3
+            controls.target.copy(e.target) // target is Vector3
             controls.object.position.copy(e.position) // object is Object3D
             controls.object.up.copy(e.up)
             //controls.rotateCamera()
-            fitScene({scene, camera, controls, selection})
+            fitScene({ scene, camera, controls, selection })
 
-            
             // const beginTarget = controls.target.clone()
             // const endTarget   = e.target
             // const beginCamera = controls.object.position.clone()
@@ -47,7 +56,6 @@ export function changeView(view: string,
             //     nb  : 20,
             //     time: 300
             // })
-            
         }
     }
 }
@@ -56,18 +64,23 @@ export function changeView(view: string,
 
 const entries: Map<string, any> = new Map()
 
-function add(name: string, target: Vector3, position: Vector3, up: Vector3): void {
+function add(
+    name: string,
+    target: Vector3,
+    position: Vector3,
+    up: Vector3,
+): void {
     const entry = {
-      target: target.clone(),
-      position: position.clone(),
-      up: up.clone()
+        target: target.clone(),
+        position: position.clone(),
+        up: up.clone(),
     }
     entries.set(name, entry)
 }
 
-add('up',    new Vector3(0, 0, 0), new Vector3(0, 0, 1),  new Vector3(0, 1, 0))
-add('down',  new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0))
-add('east',  new Vector3(0, 0, 0), new Vector3(1, 0, 0),  new Vector3(0, 0, 1))
-add('west',  new Vector3(0, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1))
-add('north', new Vector3(0, 0, 0), new Vector3(0, 1, 0),  new Vector3(0, 0, 1))
+add('up', new Vector3(0, 0, 0), new Vector3(0, 0, 1), new Vector3(0, 1, 0))
+add('down', new Vector3(0, 0, 0), new Vector3(0, 0, -1), new Vector3(0, 1, 0))
+add('east', new Vector3(0, 0, 0), new Vector3(1, 0, 0), new Vector3(0, 0, 1))
+add('west', new Vector3(0, 0, 0), new Vector3(-1, 0, 0), new Vector3(0, 0, 1))
+add('north', new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 0, 1))
 add('south', new Vector3(0, 0, 0), new Vector3(0, -1, 0), new Vector3(0, 0, 1))

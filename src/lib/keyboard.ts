@@ -1,11 +1,10 @@
-
 export type KeyCallback = (event: KeyboardEvent) => void
 
 export enum KeyModifier {
-    ALT  = 0x1,
-    SHIFT= 0x2,
+    ALT = 0x1,
+    SHIFT = 0x2,
     CTRL = 0x4,
-    META = 0x8
+    META = 0x8,
 }
 
 /**
@@ -18,25 +17,28 @@ export enum KeyModifier {
  * keyboard.addKey({key:'a', cb: e => console.log('Key a was pressed') })
  * keyboard.setUpEvent(e => console.log('Key released'))
  * ```
- * 
+ *
  * Example of event type:
  * <ul>
  * <li> When the key is first pressed, the keydown event is sent.
  * <li> If the key is not a modifier key, the keypress event is sent.
  * <li> When the user releases the key, the keyup event is sent.
  * </ul>
- * 
+ *
  * @category Utils
  */
 export class Keyboard {
-    constructor(private readonly dom: any, private readonly type: string = 'keydown') {
-        if (dom===undefined) this.dom = document
-        this.dom.addEventListener( type, this.proceed )
+    constructor(
+        private readonly dom: any,
+        private readonly type: string = 'keydown',
+    ) {
+        if (dom === undefined) this.dom = document
+        this.dom.addEventListener(type, this.proceed)
     }
 
     setUpEvent(cb: KeyCallback) {
         this.upCB = cb
-        this.dom.addEventListener( 'keyup', this.upCB )
+        this.dom.addEventListener('keyup', this.upCB)
     }
 
     /**
@@ -52,16 +54,24 @@ export class Keyboard {
      * keyboard.setUpEvent(e => console.log('Key released'))
      * ```
      */
-    addKey({key, cb, modifiers=0}:{key: string, cb: KeyCallback, modifiers?: KeyModifier}) {
-        this.map.push( {key, cb, modifiers} )
+    addKey({
+        key,
+        cb,
+        modifiers = 0,
+    }: {
+        key: string
+        cb: KeyCallback
+        modifiers?: KeyModifier
+    }) {
+        this.map.push({ key, cb, modifiers })
     }
 
     /**
      * Remove the underlaying listener from the dom
      */
     destroy() {
-        this.dom.removeEventListener( this.type, this.proceed )
-        if (this.upCB) this.dom.removeEventListener( 'keyup', this.upCB )
+        this.dom.removeEventListener(this.type, this.proceed)
+        if (this.upCB) this.dom.removeEventListener('keyup', this.upCB)
     }
 
     private proceed = (event: KeyboardEvent) => {
@@ -70,13 +80,13 @@ export class Keyboard {
         }
 
         const modifiers =
-            (event.altKey   as unknown as number)*KeyModifier.ALT   |
-            (event.shiftKey as unknown as number)*KeyModifier.SHIFT |
-            (event.ctrlKey  as unknown as number)*KeyModifier.CTRL  |
-            (event.metaKey  as unknown as number)*KeyModifier.META
+            ((event.altKey as unknown as number) * KeyModifier.ALT) |
+            ((event.shiftKey as unknown as number) * KeyModifier.SHIFT) |
+            ((event.ctrlKey as unknown as number) * KeyModifier.CTRL) |
+            ((event.metaKey as unknown as number) * KeyModifier.META)
 
-        this.map.forEach( b => {
-            if (b.key === event.key && modifiers===b.modifiers) {
+        this.map.forEach((b) => {
+            if (b.key === event.key && modifiers === b.modifiers) {
                 b.cb(event)
             }
         })
@@ -87,7 +97,7 @@ export class Keyboard {
 }
 
 type Binding = {
-    key: string,
-    modifiers: number,
+    key: string
+    modifiers: number
     cb: KeyCallback
 }
