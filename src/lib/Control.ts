@@ -8,8 +8,8 @@ import { Camera, Vector3 } from 'three'
  * for more information about the properties and the `update()` method.
  */
 export interface Controls {
-	target     : Vector3
-	object     : Camera
-	maxDistance: number
-	update()
+    target: Vector3
+    object: Camera
+    maxDistance: number
+    update()
 }
